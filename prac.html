@@ -163,25 +163,12 @@
 			function getData() {
 				var course = $("#course").val().toUpperCase();
 				var sectionNum = $("#sectionNum").val();
-				var strSearch = "http://daemondash.bookholders.com/classdata/UMCP/"+course.substring(0,4)+"/"+course;
+				var strSearch = "http://daemondash.bookholders.com/classdata/UMCP/"+course.substring(0,4)+"/"+course+"?callback=?";
 				var strSearch1 = "http://api.umd.io/v0/courses/"+course;
 				$.getJSON( strSearch, function( data ) {
+					var div = document.getElementById('output');
+					div.innerHTML = div.innerHTML + data;
 				});
-				var req = new XMLHttpRequest();
-				// Feature detection for CORS
-					req.open('GET', 'strSearch', true);
-					// Just like regular ol' XHR
-					req.onreadystatechange = function() {
-						if (req.readyState === 4) {
-							if (req.status >= 200 && req.status < 400) {
-								var div = document.getElementById('output');
-								div.innerHTML = div.innerHTML + data;
-							} else {
-								Console.log(req.status)
-								// Handle error case
-							}
-						}
-					};
     }
 
 		</script>
