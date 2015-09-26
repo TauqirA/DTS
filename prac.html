@@ -71,10 +71,25 @@
 
     <!-- Callout -->
     <aside class="callout">
+	
         <div class="text-vertical-center">
-            <h1>Vertically Centered Text</h1>
+            <form class="form-inline">
+			  <div class="form-group">
+				<label for="exampleInputName1">Course:</label>
+				<input type="text" class="form-control" id="course" placeholder="CMSC330">
+			  </div>
+			  <div class="form-group">
+				<label for="exampleInputName2">Section</label>
+				<input type="text" class="form-control" id="sectionNum" placeholder="0101">
+			  </div>
+			  <button type="button" class="btn btn-default" onClick="getData();">Search</button>
+			  
+			</form>
         </div>
+		
     </aside>
+	<div id="output">
+		</div>
 
     <!-- Footer -->
     <footer>
@@ -144,6 +159,19 @@
         });
     });
     </script>
+	<script>
+			function getData() {
+				var course = $("#course").val().toUpperCase();
+				var sectionNum = $("#sectionNum").val();
+				var strSearch = "http://daemondash.bookholders.com/classdata/UMCP/"+course.substring(0,4)+"/"+course;
+				$.getJSON( strSearch, function( data ) {
+						var div = document.getElementById('output');
+						div.innerHTML = div.innerHTML + data;
+						div.innerHTML = div.innerHTML + "Hi";
+				});
+
+			}
+		</script>
 
 </body>
 
