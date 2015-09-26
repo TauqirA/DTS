@@ -165,12 +165,10 @@
 				var sectionNum = $("#sectionNum").val();
 				var strSearch = "http://daemondash.bookholders.com/classdata/UMCP/"+course.substring(0,4)+"/"+course;
 				var strSearch1 = "http://api.umd.io/v0/courses/"+course;
-				$.getJSON( strSearch1, function( data ) {
-						
+				$.getJSON( strSearch, function( data ) {
 				});
 				var req = new XMLHttpRequest();
 				// Feature detection for CORS
-				if ('withCredentials' in req) {
 					req.open('GET', 'strSearch', true);
 					// Just like regular ol' XHR
 					req.onreadystatechange = function() {
@@ -179,11 +177,11 @@
 								var div = document.getElementById('output');
 								div.innerHTML = div.innerHTML + data;
 							} else {
+								Console.log(req.status)
 								// Handle error case
 							}
 						}
 					};
-				}
     }
 
 		</script>
