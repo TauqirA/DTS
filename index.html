@@ -258,7 +258,8 @@ function profile(){
             userRef.set(userInfo, function onComplete() {
             });
             var chatR = new Firechat(ref);
-	   chatR.createRoom(user[1].value, "public", function(roomId){});
+                    var  tdino = document.getElementById('courseName');
+	   chatR.createRoom(tdino.value, "public", function(roomId){});
 	}
 </script>
 <script>
