@@ -111,8 +111,6 @@
     <!-- / LOGIN -->
     <!-- LOGOUT -->
     <form id="frmLogout" role="form">
-         <h2>You are logged out!</h2>
-
     </form>
     <!-- / LOGOUT -->
     <!-- REGISTER -->
@@ -149,7 +147,7 @@
                 <option>Daspletosaurus</option>
             </select>
         </div>
-        <button type="button" class="btn btn-primary" onClick="profile();">Update</button>
+        <button type="submit" class="btn btn-primary" onClick="profile();">Update</button>
     </form>
     <!-- / PROFILE -->
     <hr />
@@ -246,8 +244,8 @@
 
 		</script>
 <script>
+var ref = new Firebase("https://scorching-inferno-5217.firebaseio.com");
 function onRegis(){
-	var ref = new Firebase("https://scorching-inferno-5217.firebaseio.com");
 	ref.createUser({
 	email    : $("#txtEmailR").val(),
   	password : $("#txtPassR").val()
@@ -262,7 +260,6 @@ function onRegis(){
 	});
 }
 function onLogin(){
-	var ref = new Firebase("https://scorching-inferno-5217.firebaseio.com");
 	ref.authWithPassword({
 	  email    : $("#txtEmailL").val(),
 	  password : $("#txtPassL").val()
@@ -275,6 +272,38 @@ function onLogin(){
 	    console.log("Authenticated successfully with payload:", authData);
 	  }
 	});
+	// Check the current user
+        var user = rootRef.getAuth();
+        var userRef;
+        // Load user info
+        userRef = rootRef.child('users').child(user.uid);
+        userRef.once('value', function (snap) {
+            var user = snap.val();
+            if (!user) {
+                return;
+            }
+
+            // set the fields
+            form.find('#txtName').val(user.name);
+            form.find('#ddlDino').val(user.favoriteDinosaur);
+        });
+
+        // Save user's info to Firebase
+        form.on('submit', function (e) {
+            e.preventDefault();
+            var userInfo = $(this).serializeObject();
+
+            userRef.set(userInfo, function onComplete() {
+
+                // show the message if write is successful
+                showAlert({
+                    title: 'Successfully saved!',
+                    detail: 'You are still logged in',
+                    className: 'alert-success'
+                });
+
+            });
+        });
 }
 </script>
 
