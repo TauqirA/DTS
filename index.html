@@ -257,7 +257,7 @@ function profile(){
             var userInfo = prof.serializeArray();
             userRef.set(userInfo, function onComplete() {
             });
-            var chatR = new Firechat(ref);
+            var chatR = new Firechat(chatRef);
                     var  tdino = document.getElementById('courseName');
 	   chatR.createRoom(tdino.value, "public", function(roomId){});
 	}
