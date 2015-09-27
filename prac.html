@@ -298,7 +298,7 @@ function profile(){
 	var user = ref.getAuth();
         var userRef =  ref.child('users').child(user.uid);
 	   var prof = $(document.forms["frmProfile"]);
-            var userInfo = prof.serializeArray();
+            var userInfo = prof.serializeObject();
             userRef.set(userInfo, function onComplete() {
             });
 	}
