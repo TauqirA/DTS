@@ -258,10 +258,18 @@ function profile(){
             });
             var chatR = new Firechat(ref);
                     var  tdino = document.getElementById('courseName');
+              var made = false;
            $('#firechat-room-list li').each(function() {
-		console.log(this.innerHTML);
+		var s = ""+ this.innerHTML;
+		if(s.indexOf("courseName") > -1) {
+			made = true;
+		}
 		});
-	   chatR.createRoom(tdino.value, "public", function(roomId){});
+		if(made == false){
+	   		chatR.createRoom(tdino.value, "public", function(roomId){});
+		} else {
+			alert("Room Already Exists");
+		}
 	}
 </script>
 <script>
