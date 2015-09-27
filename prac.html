@@ -234,17 +234,33 @@
     });
     </script>
 	<script>
-	function getData() {
-		var course = $("#course").val().toUpperCase();
-		var sectionNum = $("#sectionNum").val();
-		var strSearch = "http://daemondash.bookholders.com/classdata/UMCP/"+course.substring(0,4)+"/"+course;
-		var strSearch1 = "http://api.umd.io/v0/courses/"+course;
+    function getData(){
+        var course = $("#course").val().toUpperCase();
+        var sectionNum = $("#sectionNum").val();
+        getClassData(course,sectionNum);
+    }
+	function getClassData(course, sectionNum) {
+		var strSearch = "http://daemondash.bookholders.com/classdata/UMCP/"+course.toUpperCase().substring(0,4)+"/"+course.toUpperCase() ;
+        var obj; 
+		//var strSearch1 = "http://api.umd.io/v0/courses/"+course ;
 		$.getJSON( strSearch, function( data ) {
 			var div = document.getElementById('output');
-			div.innerHTML = div.innerHTML + data;
+            //obj = JSON.stringify(data, ['starttime','professor', 'section','class','days', 'endtime' ]);
+            var array = $.map(data, function(value, index) {
+                 return [value];
+            });
+            var element;
+            for(i = 0; i < array.length; i++){
+                //JSON.stringify(array[i]).indexOf("section\"unsure emoticon"" + sectionNum) != -1
+                if(array[i].section == (sectionNum)){
+                    element = i;
+                    i = array.length;
+                }
+            }
+			div.innerHTML = div.innerHTML + array[element].seats;
+            return array[element];
 		});
     	}
-
 	</script>
 <script>
 var ref = new Firebase("https://scorching-inferno-5217.firebaseio.com");
