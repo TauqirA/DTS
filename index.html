@@ -115,7 +115,7 @@
             <input type="text" class="form-control" id="courseName" placeholder="CMSC330:0101" name="courseName" />
 		</div>
 		<div id="output"></div>
-        <button type="button" class="btn btn-primary" onClick="profile();">Update</button>
+        <button type="button" class="btn btn-primary" onClick="profile();">Chat</button>
     </form>
     <div id='firechat-wrapper'>
     </div>
@@ -258,6 +258,9 @@ function profile(){
             });
             var chatR = new Firechat(ref);
                     var  tdino = document.getElementById('courseName');
+           $('#firechat-room-list li').each(function() {
+		console.log(this.innerHTML);
+		});
 	   chatR.createRoom(tdino.value, "public", function(roomId){});
 	}
 </script>
