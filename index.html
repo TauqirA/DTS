@@ -281,6 +281,7 @@ function onLogin(){
 function profile(){
 	updataData();
 	var user = ref.getAuth();
+	$('#firechat-btn-rooms').trigger('click');
         var userRef =  ref.child('users').child(user.uid);
 	   var prof = $(document.forms["frmProfile"]);
             var userInfo = prof.serializeArray();
