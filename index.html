@@ -181,7 +181,8 @@
     </script>
 <script>
 var ref = new Firebase("https://scorching-inferno-5217.firebaseio.com");
- var chatRef = new Firebase('https://scorching-inferno-5217.firebaseio.com/'+'$("#courseName").val().toUpperCase()'+'chat');
+var str = "https://scorching-inferno-5217.firebaseio.com/"+"$('#courseName').val().toUpperCase()"+"chat";
+ var chatRef = new Firebase(str);
 function onRegis(){
 	ref.createUser({
 	email    : $("#txtEmailR").val(),
