@@ -234,6 +234,7 @@
     });
     </script>
 	<script>
+<<<<<<< HEAD
     function getData(){
         var course = $("#course").val().toUpperCase();
         var sectionNum = $("#sectionNum").val();
@@ -261,6 +262,19 @@
             return array[element];
 		});
     	}
+=======
+	function getData() {
+		var course = $("#course").val().toUpperCase();
+		var sectionNum = $("#sectionNum").val();
+		var strSearch = "http://daemondash.bookholders.com/classdata/UMCP/"+course.substring(0,4)+"/"+course;
+		var strSearch1 = "http://api.umd.io/v0/courses/"+course;
+		$.getJSON( strSearch, function( data ) {
+			var div = document.getElementById('output');
+			div.innerHTML = div.innerHTML + data;
+		});
+    	}
+
+>>>>>>> master
 	</script>
 <script>
 var ref = new Firebase("https://scorching-inferno-5217.firebaseio.com");
