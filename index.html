@@ -210,12 +210,12 @@ function onLogin(){
 	    var link = document.getElementById('frmRegister');
 	    link.style.display = 'none';
 	    console.log("Authenticated successfully with payload:", authData);
+	   if (authData) {
+	       	var chat = new FirechatUI(chatRef, document.getElementById('firechat-wrapper'));
+	  	chat.setUser(authData.uid, authData[authData.provider].displayName);
+	    }
 	  }
 	});
-	if (authData) {
-          var chat = new FirechatUI(chatRef, document.getElementById('firechat-wrapper'));
-          chat.setUser(authData.uid, authData[authData.provider].displayName);
-        }
 	// Check the current user
         var user = ref.getAuth();
         var userRef;
