@@ -147,7 +147,7 @@
                 <option>Daspletosaurus</option>
             </select>
         </div>
-        <button type="submit" class="btn btn-primary" onClick="profile();">Update</button>
+        <button type="button" class="btn btn-primary" onClick="profile();">Update</button>
     </form>
     <!-- / PROFILE -->
     <hr />
@@ -284,26 +284,28 @@ function onLogin(){
             }
 
             // set the fields
-            form.find('#txtName').val(user.name);
-            form.find('#ddlDino').val(user.favoriteDinosaur);
+        var tname = document.getElementById('txtName');
+        var  tdino = document.getElementById('ddlDino');
+        tname.value = user.name
+        tdino.value = user.favoriteDinosaur
         });
-
-        // Save user's info to Firebase
-        form.on('submit', function (e) {
-            e.preventDefault();
-            var userInfo = $(this).serializeObject();
-
-            userRef.set(userInfo, function onComplete() {
-
-                // show the message if write is successful
-                showAlert({
-                    title: 'Successfully saved!',
-                    detail: 'You are still logged in',
-                    className: 'alert-success'
-                });
-
-            });
-        });
+	function profile(){
+		 function (e) {
+	            e.preventDefault();
+	            var userInfo = $(this).serializeObject();
+	
+	            userRef.set(userInfo, function onComplete() {
+	
+	                // show the message if write is successful
+	                showAlert({
+	                    title: 'Successfully saved!',
+	                    detail: 'You are still logged in',
+	                    className: 'alert-success'
+	                });
+	
+	            });
+	        }
+	}
 }
 </script>
 
