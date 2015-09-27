@@ -260,8 +260,9 @@ function profile(){
                     var  tdino = document.getElementById('courseName');
               var made = false;
            $('#firechat-room-list li').each(function() {
+           	var  string = document.getElementById('courseName');
 		var s = ""+ this.innerHTML;
-		if(s.indexOf("courseName") > -1) {
+		if(s.indexOf(""+string) > -1) {
 			made = true;
 		}
 		});
