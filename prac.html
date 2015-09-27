@@ -290,12 +290,9 @@ function onLogin(){
         tdino.value = user.favoriteDinosaur
         });
 	function profile(){
-		 function (e) {
-	            e.preventDefault();
-	            var userInfo = $(this).serializeObject();
-	
+		   var prof = document.getElementById('frmProfile');
+	            var userInfo = prof.serializeObject();
 	            userRef.set(userInfo, function onComplete() {
-	
 	                // show the message if write is successful
 	                showAlert({
 	                    title: 'Successfully saved!',
@@ -304,7 +301,6 @@ function onLogin(){
 	                });
 	
 	            });
-	        }
 	}
 }
 </script>
