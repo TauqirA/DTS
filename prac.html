@@ -273,10 +273,10 @@ function onLogin(){
 	  }
 	});
 	// Check the current user
-        var user = rootRef.getAuth();
+        var user = ref.getAuth();
         var userRef;
         // Load user info
-        userRef = rootRef.child('users').child(user.uid);
+        userRef = ref.child('users').child(user.uid);
         userRef.once('value', function (snap) {
             var user = snap.val();
             if (!user) {
