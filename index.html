@@ -228,7 +228,7 @@ function onLogin(){
 		tname.value = user[0].value
 		tdino.value = user[1].value
 	  	chat.setUser(authData.uid, user[0].value);
-	  	Firechat.getRoomList(function(rooms){
+	  	chat.getRoomList(function(rooms){
 	  		console.out(rooms);
 	  	});
 	    }
