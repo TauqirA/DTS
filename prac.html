@@ -263,7 +263,6 @@ function onRegis(){
 }
 function onLogin(){
 	var ref = new Firebase("https://scorching-inferno-5217.firebaseio.com");
-	var ref = new Firebase("https://<YOUR-FIREBASE-APP>.firebaseio.com");
 	ref.authWithPassword({
 	  email    : $("#txtEmailL").val(),
 	  password : $("#txtPassL").val()
