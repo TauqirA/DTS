@@ -224,8 +224,8 @@ function onLogin(){
 			console.log(user)
 			tname.value = user[0].value
 			tdino.value = user[1].value
+			chat.setUser(authData.uid, user[0].value);
 			var chatR = new Firechat(ref);
-		  	chatR.setUser(authData.uid, user[0].value);
 		  	chatR.createRoom(user[1].value, "public", function(roomId){});
 	    });
 	  }
