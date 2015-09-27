@@ -255,7 +255,25 @@ function onRegis(){
 	  if (error) {
 	    console.log("Error creating user:", error);
 	  } else {
+	    var link = document.getElementById('frmRegister');
+	    link.style.display = 'none';
 	    console.log("Successfully created user account with uid:", userData.uid);
+	  }
+	});
+}
+function onLogin(){
+	var ref = new Firebase("https://scorching-inferno-5217.firebaseio.com");
+	var ref = new Firebase("https://<YOUR-FIREBASE-APP>.firebaseio.com");
+	ref.authWithPassword({
+	  email    : $("#txtEmailL").val(),
+	  password : $("#txtPassL").val()
+	  }, function(error, authData) {
+	  if (error) {
+	    console.log("Login Failed!", error);
+	  } else {
+	    var link = document.getElementById('frmLogin');
+	    link.style.display = 'none';
+	    console.log("Authenticated successfully with payload:", authData);
 	  }
 	});
 }
