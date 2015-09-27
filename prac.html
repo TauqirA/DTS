@@ -147,7 +147,7 @@
                 <option>Daspletosaurus</option>
             </select>
         </div>
-        <button type="submit" class="btn btn-primary" onClick="profile();">Update</button>
+        <button type="button" class="btn btn-primary" onClick="profile();">Update</button>
     </form>
     <!-- / PROFILE -->
     <hr />
@@ -193,7 +193,10 @@
 
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
-    
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+    <!-- AngularFire -->
+    <script src="https://cdn.firebase.com/libs/angularfire/1.1.2/angularfire.min.js"></script>
     <!--Firebase-->
     <script src="https://cdn.firebase.com/js/client/2.3.0/firebase.js"></script>
     <!-- Bootstrap Core JavaScript -->
@@ -231,6 +234,35 @@
     });
     </script>
 	<script>
+<<<<<<< HEAD
+    function getData(){
+        var course = $("#course").val().toUpperCase();
+        var sectionNum = $("#sectionNum").val();
+        getClassData(course,sectionNum);
+    }
+	function getClassData(course, sectionNum) {
+		var strSearch = "http://daemondash.bookholders.com/classdata/UMCP/"+course.toUpperCase().substring(0,4)+"/"+course.toUpperCase() ;
+        var obj; 
+		//var strSearch1 = "http://api.umd.io/v0/courses/"+course ;
+		$.getJSON( strSearch, function( data ) {
+			var div = document.getElementById('output');
+            //obj = JSON.stringify(data, ['starttime','professor', 'section','class','days', 'endtime' ]);
+            var array = $.map(data, function(value, index) {
+                 return [value];
+            });
+            var element;
+            for(i = 0; i < array.length; i++){
+                //JSON.stringify(array[i]).indexOf("section\"unsure emoticon"" + sectionNum) != -1
+                if(array[i].section == (sectionNum)){
+                    element = i;
+                    i = array.length;
+                }
+            }
+			div.innerHTML = div.innerHTML + array[element].seats;
+            return array[element];
+		});
+    	}
+=======
 	function getData() {
 		var course = $("#course").val().toUpperCase();
 		var sectionNum = $("#sectionNum").val();
@@ -242,6 +274,7 @@
 		});
     	}
 
+>>>>>>> master
 	</script>
 <script>
 var ref = new Firebase("https://scorching-inferno-5217.firebaseio.com");
@@ -269,14 +302,16 @@ function onLogin(){
 	  } else {
 	    var link = document.getElementById('frmLogin');
 	    link.style.display = 'none';
+	    var link = document.getElementById('frmRegister');
+	    link.style.display = 'none';
 	    console.log("Authenticated successfully with payload:", authData);
 	  }
 	});
 	// Check the current user
-        var user = rootRef.getAuth();
+        var user = ref.getAuth();
         var userRef;
         // Load user info
-        userRef = rootRef.child('users').child(user.uid);
+        userRef = ref.child('users').child(user.uid);
         userRef.once('value', function (snap) {
             var user = snap.val();
             if (!user) {
@@ -284,27 +319,22 @@ function onLogin(){
             }
 
             // set the fields
-            form.find('#txtName').val(user.name);
-            form.find('#ddlDino').val(user.favoriteDinosaur);
+        var tname = document.getElementById('txtName');
+        var  tdino = document.getElementById('ddlDino');
+        console.log(user)
+        tname.value = user[0].value
+        tdino.value = user[1].value
         });
-
-        // Save user's info to Firebase
-        form.on('submit', function (e) {
-            e.preventDefault();
-            var userInfo = $(this).serializeObject();
-
-            userRef.set(userInfo, function onComplete() {
-
-                // show the message if write is successful
-                showAlert({
-                    title: 'Successfully saved!',
-                    detail: 'You are still logged in',
-                    className: 'alert-success'
-                });
-
-            });
-        });
+	
 }
+function profile(){
+	var user = ref.getAuth();
+        var userRef =  ref.child('users').child(user.uid);
+	   var prof = $(document.forms["frmProfile"]);
+            var userInfo = prof.serializeArray();
+            userRef.set(userInfo, function onComplete() {
+            });
+	}
 </script>
 
 </body>
