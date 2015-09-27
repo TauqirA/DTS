@@ -297,15 +297,8 @@ function profile(){
 	var user = ref.getAuth();
         var userRef =  ref.child('users').child(user.uid);
 	   var prof = $(document.forms["frmProfile"]);
-            var userInfo = JSON.stringify(prof.serializeArray());
+            var userInfo = prof.serializeArray();
             userRef.set(userInfo, function onComplete() {
-                // show the message if write is successful
-                showAlert({
-                    title: 'Successfully saved!',
-                    detail: 'You are still logged in',
-                    className: 'alert-success'
-                });
-
             });
 	}
 </script>
