@@ -296,8 +296,8 @@ function onLogin(){
 function profile(){
 	var user = ref.getAuth();
         var userRef;
-	   var prof = document.forms["frmProfile"];
-            var userInfo = prof.serializeArray();
+	   var prof = $(document.forms["frmProfile"]);
+            var userInfo = JSON.stringify(prof.serializeArray());
             userRef.set(userInfo, function onComplete() {
                 // show the message if write is successful
                 showAlert({
