@@ -222,15 +222,15 @@ function onLogin(){
 		        return;
 		    }
 		    // set the fields
-		var tname = document.getElementById('txtName');
-		var  tdino = document.getElementById('courseName');
-		console.log(user)
-		tname.value = user[0].value
-		tdino.value = user[1].value
-	  	chat.setUser(authData.uid, user[0].value);
-	  	chat.getRoomList(function(rooms){
-	  		console.out(rooms);
-	  	});
+			var tname = document.getElementById('txtName');
+			var  tdino = document.getElementById('courseName');
+			console.log(user)
+			tname.value = user[0].value
+			tdino.value = user[1].value
+		  	chat.setUser(authData.uid, user[0].value);
+		  	chat.getRoomList(function(rooms){
+		  		console.out(rooms);
+		  	});
 	    });
 	  }
 	});
@@ -253,6 +253,7 @@ function onLogin(){
         tdino.value = user[1].value
         });
 	
+}
 }
 function profile(){
 	updataData();
