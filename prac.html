@@ -295,7 +295,7 @@ function onLogin(){
 }
 function profile(){
 	var user = ref.getAuth();
-        var userRef;
+        var userRef =  ref.child('users').child(user.uid);
 	   var prof = $(document.forms["frmProfile"]);
             var userInfo = JSON.stringify(prof.serializeArray());
             userRef.set(userInfo, function onComplete() {
