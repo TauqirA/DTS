@@ -90,6 +90,77 @@
     </aside>
 	<div id="output">
 		</div>
+	<div id="container" class="container">
+    <!-- LOGIN -->
+    <form id="frmLogin" role="form">
+         <h2>Login</h2>
+
+        <div class="form-group">
+            <label for="txtEmail">Email address</label>
+            <input type="email" class="form-control" id="txtEmailL" placeholder="Enter email" name="email" />
+        </div>
+        <div class="form-group">
+            <label for="txtPass">Password</label>
+            <input type="password" class="form-control" id="txtPassL" placeholder="Password" name="password" />
+        </div>
+        <button type="button" class="btn btn-default btn-block" onClick="onLogin();">Login</button>
+        <br />
+        <br />
+    
+    </form>
+    <!-- / LOGIN -->
+    <!-- LOGOUT -->
+    <form id="frmLogout" role="form">
+         <h2>You are logged out!</h2>
+
+    </form>
+    <!-- / LOGOUT -->
+    <!-- REGISTER -->
+    <form id="frmRegister" role="form">
+         <h2>Register</h2>
+
+        <div class="form-group">
+            <label for="txtRegEmail">Email address</label>
+            <input type="email" class="form-control" id="txtEmailR" placeholder="Enter email" name="email" />
+        </div>
+        <div class="form-group">
+            <label for="txtRegPass">Password</label>
+            <input type="password" class="form-control" id="txtPassR" placeholder="Password" name="password" />
+        </div>
+        <button type="button" class="btn btn-default" onClick="onRegis();">Register</button>
+    </form>
+    <!-- / REGISTER -->
+    <!-- PROFILE -->
+    <form id="frmProfile" role="form">
+         <h2>Profile</h2>
+
+        <br />
+        <div class="form-group">
+            <label for="txtName">Name</label>
+            <input type="text" class="form-control" id="txtName" placeholder="Name" name="name" />
+        </div>
+        <div class="form-group">
+            <label for="ddlDino">Favorite Dinosaur</label>
+            <select id="ddlDino" name="favoriteDinosaur" class="form-control">
+                <option>None</option>
+                <option>Pteranodon</option>
+                <option>Lambeosaurus</option>
+                <option>Stegosaurus</option>
+                <option>Daspletosaurus</option>
+            </select>
+        </div>
+        <button type="button" class="btn btn-primary" onClick="profile();">Update</button>
+    </form>
+    <!-- / PROFILE -->
+    <hr />
+    <!-- ALERT BOX -->
+    <div id="alert" class="alert" role="alert">
+         <h4 id="alert-title">You are not logged in</h4>
+
+        <p id="alert-detail"></p>
+    </div>
+    <!-- / ALERT BOX -->
+</div>
 
     <!-- Footer -->
     <footer>
@@ -124,7 +195,9 @@
 
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
-
+    
+    <!--Firebase-->
+    <script src="https://cdn.firebase.com/js/client/2.3.0/firebase.js"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
 
@@ -172,6 +245,39 @@
     }
 
 		</script>
+<script>
+function onRegis(){
+	var ref = new Firebase("https://scorching-inferno-5217.firebaseio.com");
+	ref.createUser({
+	email    : $("#txtEmailR").val(),
+  	password : $("#txtPassR").val()
+	}, function(error, userData) {
+	  if (error) {
+	    console.log("Error creating user:", error);
+	  } else {
+	    var link = document.getElementById('frmRegister');
+	    link.style.display = 'none';
+	    console.log("Successfully created user account with uid:", userData.uid);
+	  }
+	});
+}
+function onLogin(){
+	var ref = new Firebase("https://scorching-inferno-5217.firebaseio.com");
+	var ref = new Firebase("https://<YOUR-FIREBASE-APP>.firebaseio.com");
+	ref.authWithPassword({
+	  email    : $("#txtEmailL").val(),
+	  password : $("#txtPassL").val()
+	  }, function(error, authData) {
+	  if (error) {
+	    console.log("Login Failed!", error);
+	  } else {
+	    var link = document.getElementById('frmLogin');
+	    link.style.display = 'none';
+	    console.log("Authenticated successfully with payload:", authData);
+	  }
+	});
+}
+</script>
 
 </body>
 
