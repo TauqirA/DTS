@@ -195,8 +195,7 @@
     </script>
 <script>
 var ref = new Firebase("https://scorching-inferno-5217.firebaseio.com");
-var str = "https://scorching-inferno-5217.firebaseio.com/"+$('#courseName').val().toUpperCase().split(":")[0]+"chat";
- var messagesRef = new Firebase(str);
+
 function onRegis(){
 	ref.createUser({
 	email    : $("#txtEmailR").val(),
@@ -226,7 +225,29 @@ function onLogin(){
 	    link.style.display = 'none';
 	    console.log("Authenticated successfully with payload:", authData);
 	   if (authData) {
-	   	// REGISTER DOM ELEMENTS
+	   	
+	       	var chat = new FirechatUI(chatRef, document.getElementById('firechat-wrapper'));
+	       	var user = ref.getAuth();
+		var userRef;
+		// Load user info
+		userRef = ref.child('users').child(user.uid);
+		userRef.once('value', function (snap) {
+		    var user = snap.val();
+		    if (!user) {
+		        return;
+		    }
+		    console.log(authData.uid);
+		    // set the fields
+			var tname = document.getElementById('txtName');
+			var  tdino = document.getElementById('courseName');
+			console.log(user)
+			tname.value = user[0].value
+			tdino.value = user[1].value
+		  	chat.setUser(authData.uid, user[0].value);
+	    });
+	    // REGISTER DOM ELEMENTS
+	   	var str = "https://scorching-inferno-5217.firebaseio.com/"+$('#courseName').val().toUpperCase().split(":")[0]+"chat";
+ 		var messagesRef = new Firebase(str);
 		var messageField = $('#messageInput');
 		var nameField = $('#nameInput');
 		var messageList = $('#example-messages');
@@ -263,28 +284,6 @@ function onLogin(){
 		//SCROLL TO BOTTOM OF MESSAGE LIST
 		messageList[0].scrollTop = messageList[0].scrollHeight;
 		});
-	       	var chat = new FirechatUI(chatRef, document.getElementById('firechat-wrapper'));
-	       	var user = ref.getAuth();
-		var userRef;
-		// Load user info
-		userRef = ref.child('users').child(user.uid);
-		userRef.once('value', function (snap) {
-		    var user = snap.val();
-		    if (!user) {
-		        return;
-		    }
-		    console.log(authData.uid);
-		    // set the fields
-			var tname = document.getElementById('txtName');
-			var  tdino = document.getElementById('courseName');
-			console.log(user)
-			tname.value = user[0].value
-			tdino.value = user[1].value
-		  	chat.setUser(authData.uid, user[0].value);
-		  	Firechat.getRoomList(function(rooms){
-		  		console.out(rooms);
-		  	});
-	    });
 	  }
 	}
 	// Check the current user
