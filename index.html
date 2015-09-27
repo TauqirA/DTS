@@ -117,6 +117,8 @@
 		<div id="output"></div>
         <button type="button" class="btn btn-primary" onClick="profile();">Update</button>
     </form>
+    <div id='firechat-wrapper'>
+    </div>
 		
                     <br>
                     <ul class="list-inline">
@@ -142,6 +144,9 @@
     <script src="js/bootstrap.min.js"></script>
 	<!--Firebase-->
     <script src="https://cdn.firebase.com/js/client/2.3.0/firebase.js"></script>
+    <!-- Firechat -->
+<link rel='stylesheet' href='https://cdn.firebase.com/libs/firechat/2.0.1/firechat.min.css' />
+<script src='https://cdn.firebase.com/libs/firechat/2.0.1/firechat.min.js'></script>
     
     <!-- Custom Theme JavaScript -->
     <script>
@@ -176,6 +181,7 @@
     </script>
 <script>
 var ref = new Firebase("https://scorching-inferno-5217.firebaseio.com");
+ var chatRef = new Firebase('https://scorching-inferno-5217.firebaseio.com/chat');
 function onRegis(){
 	ref.createUser({
 	email    : $("#txtEmailR").val(),
@@ -206,6 +212,10 @@ function onLogin(){
 	    console.log("Authenticated successfully with payload:", authData);
 	  }
 	});
+	if (authData) {
+          var chat = new FirechatUI(chatRef, document.getElementById('firechat-wrapper'));
+          chat.setUser(authData.uid, authData[authData.provider].displayName);
+        }
 	// Check the current user
         var user = ref.getAuth();
         var userRef;
