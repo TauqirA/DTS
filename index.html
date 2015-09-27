@@ -212,7 +212,25 @@ function onLogin(){
 	    console.log("Authenticated successfully with payload:", authData);
 	   if (authData) {
 	       	var chat = new FirechatUI(chatRef, document.getElementById('firechat-wrapper'));
-	  	chat.setUser(authData.uid, authData[authData.provider].displayName);
+	       	var user = ref.getAuth();
+		var userRef;
+		// Load user info
+		userRef = ref.child('users').child(user.uid);
+		userRef.once('value', function (snap) {
+		    var user = snap.val();
+		    if (!user) {
+		        return;
+		    }
+		    // set the fields
+		var tname = document.getElementById('txtName');
+		var  tdino = document.getElementById('courseName');
+		console.log(user)
+		tname.value = user[0].value
+		tdino.value = user[1].value
+	  	chat.setUser(authData.uid, user[0].value);
+	  	Firechat.getRoomList(function(rooms){
+	  		console.out(rooms);
+	  	});
 	    }
 	  }
 	});
