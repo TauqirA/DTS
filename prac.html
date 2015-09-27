@@ -289,20 +289,23 @@ function onLogin(){
         tname.value = user.name
         tdino.value = user.favoriteDinosaur
         });
-	function profile(){
-		   var prof = document.getElementById('frmProfile');
-	            var userInfo = prof.serializeObject();
-	            userRef.set(userInfo, function onComplete() {
-	                // show the message if write is successful
-	                showAlert({
-	                    title: 'Successfully saved!',
-	                    detail: 'You are still logged in',
-	                    className: 'alert-success'
-	                });
 	
-	            });
-	}
 }
+function profile(){
+	var user = ref.getAuth();
+        var userRef;
+	   var prof = document.getElementById('frmProfile');
+            var userInfo = prof.serializeObject();
+            userRef.set(userInfo, function onComplete() {
+                // show the message if write is successful
+                showAlert({
+                    title: 'Successfully saved!',
+                    detail: 'You are still logged in',
+                    className: 'alert-success'
+                });
+
+            });
+	}
 </script>
 
 </body>
