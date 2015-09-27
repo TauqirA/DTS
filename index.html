@@ -178,7 +178,6 @@
     </script>
 <script>
 var ref = new Firebase("https://scorching-inferno-5217.firebaseio.com");
- var chatRef = new Firebase('https://scorching-inferno-5217.firebaseio.com/chat');
 function onRegis(){
 	ref.createUser({
 	email    : $("#txtEmailR").val(),
@@ -207,7 +206,7 @@ function onLogin(){
 	    link.style.display = 'none';
 	    console.log("Authenticated successfully with payload:", authData);
 	   if (authData) {
-	       	var chat = new FirechatUI(chatRef, document.getElementById('firechat-wrapper'));
+	       	var chat = new FirechatUI(ref, document.getElementById('firechat-wrapper'));
 	       	var user = ref.getAuth();
 		var userRef;
 		// Load user info
@@ -257,7 +256,7 @@ function profile(){
             var userInfo = prof.serializeArray();
             userRef.set(userInfo, function onComplete() {
             });
-            var chatR = new Firechat(chatRef);
+            var chatR = new Firechat(ref);
                     var  tdino = document.getElementById('courseName');
 	   chatR.createRoom(tdino.value, "public", function(roomId){});
 	}
