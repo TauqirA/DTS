@@ -289,8 +289,8 @@ function onLogin(){
         var tname = document.getElementById('txtName');
         var  tdino = document.getElementById('ddlDino');
         console.log(user)
-        tname.value = user.name
-        tdino.value = user.favoriteDinosaur
+        tname.value = user[0].name
+        tdino.value = user[1].favoriteDinosaur
         });
 	
 }
@@ -298,7 +298,7 @@ function profile(){
 	var user = ref.getAuth();
         var userRef =  ref.child('users').child(user.uid);
 	   var prof = $(document.forms["frmProfile"]);
-            var userInfo = prof.serializeObject();
+            var userInfo = prof.serializeArray();
             userRef.set(userInfo, function onComplete() {
             });
 	}
