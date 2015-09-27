@@ -117,23 +117,9 @@
 		<div id="output"></div>
         <button type="button" class="btn btn-primary" onClick="profile();">Update</button>
     </form>
-    <!--<div id='firechat-wrapper'>
-    </div>-->
-	<div class="example-chat l-demo-container">
-	  <header>Class Chat</header>
-	
-	  <div class='example-chat-toolbar'>
-	    <label for="nameInput">Username:</label>
-	    <input type='text' id='nameInput' placeholder='enter a username...'>
-	  </div>
-	
-	  <ul id='example-messages' class="example-chat-messages"></ul>
-	
-	  <footer>
-	    <input type='text' id='messageInput'  placeholder='Type a message...'>
-	  </footer>
-	</div>
-
+    <div id='firechat-wrapper'>
+    </div>
+		
                     <br>
                     <ul class="list-inline">
                         <li>
@@ -169,18 +155,15 @@
         e.preventDefault();
         $("#sidebar-wrapper").toggleClass("active");
     });
-
     // Opens the sidebar menu
     $("#menu-toggle").click(function(e) {
         e.preventDefault();
         $("#sidebar-wrapper").toggleClass("active");
     });
-
     // Scrolls to the selected menu item on the page
     $(function() {
         $('a[href*=#]:not([href=#])').click(function() {
             if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') || location.hostname == this.hostname) {
-
                 var target = $(this.hash);
                 target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
                 if (target.length) {
@@ -195,8 +178,7 @@
     </script>
 <script>
 var ref = new Firebase("https://scorching-inferno-5217.firebaseio.com");
-// REGISTER DOM ELEMENTS
-	   	
+ var chatRef = new Firebase('https://scorching-inferno-5217.firebaseio.com/chat');
 function onRegis(){
 	ref.createUser({
 	email    : $("#txtEmailR").val(),
@@ -205,7 +187,6 @@ function onRegis(){
 	  if (error) {
 	    console.log("Error creating user:", error);
 	  } else {
-
 	    var link = document.getElementById('frmRegister');
 	    link.style.display = 'none';
 	    console.log("Successfully created user account with uid:", userData.uid);
@@ -226,7 +207,6 @@ function onLogin(){
 	    link.style.display = 'none';
 	    console.log("Authenticated successfully with payload:", authData);
 	   if (authData) {
-	   	
 	       	var chat = new FirechatUI(chatRef, document.getElementById('firechat-wrapper'));
 	       	var user = ref.getAuth();
 		var userRef;
@@ -242,11 +222,13 @@ function onLogin(){
 			var tname = document.getElementById('txtName');
 			var  tdino = document.getElementById('courseName');
 			console.log(user)
-			tname.value = user[0].value;
-			tdino.value = user[1].value;
+			tname.value = user[0].value
+			tdino.value = user[1].value
 		  	chat.setUser(authData.uid, user[0].value);
+		  	Firechat.getRoomList(function(rooms){
+		  		console.out(rooms);
+		  	});
 	    });
-	    
 	  }
 	}
 	// Check the current user
@@ -259,7 +241,6 @@ function onLogin(){
             if (!user) {
                 return;
             }
-
             // set the fields
         var tname = document.getElementById('txtName');
         var  tdino = document.getElementById('courseName');
@@ -272,44 +253,6 @@ function onLogin(){
 }
 function profile(){
 	updataData();
-	var str = "https://scorching-inferno-5217.firebaseio.com/"+$('#courseName').val().toUpperCase().split(":")[0]+"chat";
- 		var messagesRef = new Firebase(str);
-		var messageField = $('#messageInput');
-		var nameField = $('#nameInput');
-		var messageList = $('#example-messages');
-		
-		// LISTEN FOR KEYPRESS EVENT
-		messageField.keypress(function (e) {
-		if (e.keyCode == 13) {
-		//FIELD VALUES
-		var username = nameField.val();
-		var message = messageField.val();
-		
-		//SAVE DATA TO FIREBASE AND EMPTY FIELD
-		messagesRef.push({name:username, text:message});
-		messageField.val('');
-		}
-		});
-		
-		// Add a callback that is triggered for each chat message.
-		messagesRef.limitToLast(10).on('child_added', function (snapshot) {
-		//GET DATA
-		var data = snapshot.val();
-		var username = data.name || "anonymous";
-		var message = data.text;
-		
-		//CREATE ELEMENTS MESSAGE & SANITIZE TEXT
-		var messageElement = $("<li>");
-		var nameElement = $("<strong class='example-chat-username'></strong>")
-		nameElement.text(username);
-		messageElement.text(message).prepend(nameElement);
-		
-		//ADD MESSAGE
-		messageList.append(messageElement)
-		
-		//SCROLL TO BOTTOM OF MESSAGE LIST
-		messageList[0].scrollTop = messageList[0].scrollHeight;
-		});
 	var user = ref.getAuth();
         var userRef =  ref.child('users').child(user.uid);
 	   var prof = $(document.forms["frmProfile"]);
